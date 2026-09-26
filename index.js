@@ -1833,7 +1833,7 @@ If you believe this is an error, please contact the administrator.`,
     try {
 
         const response = await axios.post(
-                        "https://exness-verification-server-production.up.railway.app/verify",
+                        "https://exness-exness-production.up.railway.app/verify",
             {
                 email: email
             }
