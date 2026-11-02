@@ -16,6 +16,35 @@ const bot = new TelegramBot(token, {
     polling: true
 });
 
+const http = require('http');
+
+// --- Keep Render happy: bind to a port ---
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot is running');
+}).listen(PORT, '0.0.0.0', () => {
+    console.log('Web server listening on port ' + PORT);
+});
+
+// --- Keep-alive ping every ~8-12 minutes ---
+const SELF_URL = process.env.RENDER_EXTERNAL_URL; // Render sets this automatically
+
+function scheduleSelfPing() {
+    const delay = (8 + Math.random() * 4) * 60 * 1000;
+    setTimeout(async () => {
+        try {
+            await axios.get(SELF_URL);
+            console.log('Keep-alive ping OK');
+        } catch (err) {
+            console.log('Keep-alive ping failed:', err.message);
+        }
+        scheduleSelfPing();
+    }, delay);
+}
+
+if (SELF_URL) scheduleSelfPing();
+
 bot.on('message', (msg) => {
     console.log("=================================");
     console.log("PAYMENT GROUP ID:", msg.chat.id);
