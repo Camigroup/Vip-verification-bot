@@ -1605,7 +1605,7 @@ async function checkVerifiedEmailsPartnerStatus() {
         try {
 exness-exness-production.up.railway.app
             const response = await axios.post(
-                "https://exness-exness-production.up.railway.app/verify",
+                "https://exness-verification-server.onrender.com/verify",
                 {
                     email: user.email
                 }
