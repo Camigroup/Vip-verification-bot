@@ -1862,7 +1862,7 @@ If you believe this is an error, please contact the administrator.`,
     try {
 
         const response = await axios.post(
-                        "https://exness-exness-production.up.railway.app/verify",
+                        "https://exness-verification-server.onrender.com/verify",
             {
                 email: email
             }
